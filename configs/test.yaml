@@ -10,7 +10,7 @@ module_enable_status:                 # do NOT modify modules order
   csc: True
   nlm: True
   bnf: True
-  ceh: True
+  ceh: False
   eeh: True
   fcs: True
   hsc: True

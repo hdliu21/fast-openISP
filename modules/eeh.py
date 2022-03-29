@@ -5,6 +5,7 @@
 
 
 import numpy as np
+import cv2
 
 from .basic_module import BasicModule, register_dependent_modules
 from .helpers import generic_filter, gen_gaussian_kernel
@@ -40,6 +41,18 @@ class EEH(BasicModule):
 
         enhanced_delta = sign_map * np.clip(enhanced_delta, 0, self.params.delta_threshold)
         eeh_y_image = np.clip(y_image + enhanced_delta, 0, self.cfg.saturation_values.sdr)
-
         data['y_image'] = eeh_y_image.astype(np.uint8)
+        # print(data['y_image'].size())
         data['edge_map'] = delta
+
+if __name__ == '__main__':
+    img = cv2.imread('../output/bnf.jpg')
+    img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+    y, u, v = cv2.split(img_yuv)
+    eeh_test = EEHTEST()
+    new_y = eeh_test.execute(y)
+    yuv_new = cv2.merge((new_y, u, v))
+    img_new = cv2.cvtColor(yuv_new, cv2.COLOR_YUV2BGR)
+    cv2.imwrite('./test.jpg', img_new)
+    origin = cv2.imread('./test_eeh.jpg')
+    print(np.sum(img_new-origin))

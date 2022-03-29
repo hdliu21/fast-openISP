@@ -54,7 +54,7 @@ class Pipeline:
             hdr_max_value = max(hdr_max_r, hdr_max_b, hdr_max_gr, hdr_max_gb)
         else:
             hdr_max_value = raw_max_value
-
+        print('sdr_max_value',sdr_max_value)
         return Config({'raw': raw_max_value,
                        'hdr': hdr_max_value,
                        'sdr': sdr_max_value})
