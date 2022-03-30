@@ -57,7 +57,7 @@ if __name__ == '__main__':
     new_y = eeh_test.execute(y)
     yuv_new = cv2.merge((new_y, u, v))
     img_new = cv2.cvtColor(yuv_new, cv2.COLOR_YUV2BGR)
-    cv2.imwrite('./test.jpg', img_new)
+    cv2.imwrite('./test_fast_isp.jpg', img_new)
     origin = cv2.imread('./test_eeh.jpg')
     print(np.sum(img_new-origin))
 
